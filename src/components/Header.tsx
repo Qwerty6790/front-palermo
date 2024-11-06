@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { CircleUser, ShoppingBasket, LogOut, LogIn, Home, Info, MapPin, Search } from 'lucide-react';
+import { CircleUser, ShoppingBasket, LogOut, LogIn, Home, Info, MapPin, Search, Heart } from 'lucide-react'; // Import Heart icon for "Избранное"
 import DropdownMenu from './CatalogDropdown';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,6 +22,7 @@ const Header: React.FC = () => {
   const navLinks: NavLink[] = [
     { label: 'Каталог', href: '/products', icon: <ShoppingBasket size={24} /> },
     { label: 'Корзина', href: '/cart', icon: <ShoppingBasket size={24} /> },
+    { label: 'Избранное', href: '/liked', icon: <Heart size={24} /> },  // New link for "Избранное"
     { label: 'Профиль', href: '/contact', icon: <CircleUser size={24} /> },
     { label: 'О нас', href: '/about', icon: <Info size={24} /> },
     { label: 'Заказы', href: '/orders', icon: <Home size={24} /> },

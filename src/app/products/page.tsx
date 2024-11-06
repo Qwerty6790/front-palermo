@@ -123,6 +123,7 @@ const Catalog: React.FC = () => {
   const [products, setProducts] = useState<ProductI[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalProducts, setTotalProducts] = useState<number>(1);
   const [selectedCategory, setSelectedCategory] = useState<Category>(selectedBrand.categories[0]);
   const [minPrice, setMinPrice] = useState<number>(10);
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
@@ -148,6 +149,7 @@ const Catalog: React.FC = () => {
       });
       setProducts(res.data.products);
       setTotalPages(res.data.totalPages);
+      setTotalProducts(res.data.totalProducts);
     } catch (error) {
       console.error('Ошибка при загрузке продуктов:', error);
     } finally {
@@ -206,7 +208,7 @@ const Catalog: React.FC = () => {
         <div className="flex flex-col md:flex-row -mx-20 w-full max-w-6xl mt-44">
           {/* Filters Section */}
         <div>
-          <p className='-ml-56 max-xl:hidden   max-lg:hidden max-md:hidden text-5xl text-white '>Скоро</p>
+          <p className='-ml-56 xl:hidden lg:hidden max-xl:hidden max-1xl:hidden   max-lg:hidden max-md:hidden text-5xl text-white '>Скоро</p>
           <FilterOptions />
         </div>
           <div className="w-full text-2xl   md:w-1/4 lg:w-4/4 h-auto bg-black p-2 flex flex-col  justify-start items-center space-y-2 md:mb-4">
@@ -344,7 +346,7 @@ const Catalog: React.FC = () => {
   ) : (
     <>
       <h1 className="text-3xl font-bold text-white mb-2">{` ${selectedCategory.label}`}</h1>
-      <p className="text-lg text-white mb-4">{`Количество товаров на странице: ${products.length}`}шт.</p> {/* Display the number of products */}
+      <p className="text-lg text-white mb-4">{`Количество товаров ${totalProducts}`} шт.</p> {/* Display the number of products */}
       <CatalogOfProducts products={products} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </>

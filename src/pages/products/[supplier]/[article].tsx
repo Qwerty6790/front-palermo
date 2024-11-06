@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import 'tailwindcss/tailwind.css';
 import Header from '@/components/Header';
 import { Toaster, toast } from 'sonner';
+import { Heart, Facebook, Twitter, Send } from 'lucide-react';
 
 interface ProductI {
   _id: string; 
@@ -21,25 +22,33 @@ const ProductDetail: React.FC = () => {
 
   const [product, setProduct] = useState<ProductI | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      if (!supplier || !article) return; // Проверяем наличие параметров
+      if (!supplier || !article) return;
 
-      setLoading(true); // Устанавливаем состояние загрузки
+      setLoading(true);
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${supplier}/${article}`);
-        setProduct(response.data); // Предполагается, что данные о продукте находятся в response.data
+        setProduct(response.data);
       } catch (error) {
         console.error(error);
         toast.error('Ошибка при загрузке товара');
       } finally {
-        setLoading(false); // Завершаем загрузку
+        setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [supplier, article]); // Зависимости для useEffect
+  }, [supplier, article]);
+
+  useEffect(() => {
+    // Проверяем, есть ли этот товар в избранном, и устанавливаем статус "лайкнут"
+    const liked = JSON.parse(localStorage.getItem('liked') || '{"products": []}');
+    const isProductLiked = liked.products.some((item: any) => item.article === product?.article);
+    setIsLiked(isProductLiked);
+  }, [product]);
 
   const extractStock = (stock: string): number => {
     const match = stock.match(/\d+/);
@@ -53,32 +62,46 @@ const ProductDetail: React.FC = () => {
     }
 
     const stockCount = extractStock(product.stock);
-
     if (stockCount <= 0) {
       toast.error('Товар закончился');
       return;
     }
 
-    // Получаем корзину из локального хранилища
     const cart = JSON.parse(localStorage.getItem('cart') || '{"products": []}');
     const existingProductIndex = cart.products.findIndex((item: any) => item.article === product.article);
 
     if (existingProductIndex > -1) {
-      // Если товар уже в корзине, увеличиваем количество
       cart.products[existingProductIndex].quantity += 1;
     } else {
-      // Если товара нет в корзине, добавляем его
-      cart.products.push({ 
-        article: product.article, 
-        source: product.source, 
-        quantity: 1
-      });
+      cart.products.push({ article: product.article, source: product.source, quantity: 1 });
     }
 
-    // Сохраняем обновлённую корзину в локальном хранилище
     localStorage.setItem('cart', JSON.stringify(cart));
-
     toast.success('Товар добавлен в корзину');
+  };
+
+  const addToLiked = () => {
+    if (!product) {
+      toast.error('Товар не найден');
+      return;
+    }
+
+    const liked = JSON.parse(localStorage.getItem('liked') || '{"products": []}');
+    const existingProductIndex = liked.products.findIndex((item: any) => item.article === product.article);
+
+    if (existingProductIndex > -1) {
+      // Если товар уже есть в избранном, удаляем его
+      liked.products.splice(existingProductIndex, 1);
+      setIsLiked(false);  // Обновляем статус лайка
+      toast.success('Товар удален из избранного');
+    } else {
+      // Добавляем товар в избранное
+      liked.products.push({ article: product.article, source: product.source, quantity: 1 });
+      setIsLiked(true);  // Обновляем статус лайка
+      toast.success('Товар добавлен в избранное');
+    }
+
+    localStorage.setItem('liked', JSON.stringify(liked));
   };
 
   if (loading) {
@@ -119,11 +142,28 @@ const ProductDetail: React.FC = () => {
             </div>
             <div className="mt-4">
               <button
-                onClick={addToCart} // Используем функцию добавления в корзину
+                onClick={addToCart}
                 className="bg-blue-600 text-white py-3 px-6 rounded-md transition duration-500 hover:bg-blue-700 w-full"
               >
                 В Корзину
               </button>
+              <div className="flex items-center justify-between mt-4 space-x-4">
+                <button onClick={addToLiked} className="flex items-center space-x-2 text-gray-400 hover:text-red-500 transition-colors">
+                  <Heart fill={isLiked ? 'red' : 'none'} className="w-6 h-6" />
+                  <span>{isLiked ? 'Удалить из избранного' : 'В избранное'}</span>
+                </button>
+                <div className="flex space-x-4">
+                  <button>
+                    <Facebook color="white" size={24} />
+                  </button>
+                  <button>
+                    <Twitter color="white" size={24} />
+                  </button>
+                  <button>
+                    <Send color="white" size={24} />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
