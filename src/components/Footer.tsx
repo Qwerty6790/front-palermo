@@ -85,6 +85,24 @@ const Footer: React.FC = () => {
               ></iframe>
             </div>
           </div>
+
+          {/* Flags Section */}
+          <div className="flex space-x-4 mt-8">
+            <a href="https://www.italy.com" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/1024px-Flag_of_Italy.svg.png" 
+                alt="Italy Flag" 
+                className="w-12 h-8 rounded-md"
+              />
+            </a>
+            <a href="https://www.russia.com" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1024px-Flag_of_Russia.svg.png" 
+                alt="Russia Flag" 
+                className="w-12 h-8 rounded-md"
+              />
+            </a>
+          </div>
         </div>
       </section>
     </footer>
