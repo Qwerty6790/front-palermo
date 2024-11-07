@@ -81,7 +81,7 @@ const brands: Brand[] = [
     ],
   },
   {
-    name: 'EleckroStandart',
+    name: 'ElektroStandart',
     categories: [
       { label: 'Потолочный', searchName: 'Потолочный' },
       { label: 'Подвесной', searchName: 'Подвесной' },
