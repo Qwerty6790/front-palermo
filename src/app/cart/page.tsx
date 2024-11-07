@@ -289,7 +289,6 @@ const Cart: React.FC = () => {
           </div>
         </div>
       )}
-      <Toaster />
     </motion.section>
   );
 };
