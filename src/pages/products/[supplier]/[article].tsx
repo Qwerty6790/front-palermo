@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import 'tailwindcss/tailwind.css';
 import Header from '@/components/Header';
 import { Toaster, toast } from 'sonner';
-import { Heart, Facebook, Twitter, Send, Link } from 'lucide-react'; // Added Link for copy
+import { Heart, Facebook, Twitter, Send } from 'lucide-react';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import the spinner
 
 interface ProductI {
@@ -45,6 +45,7 @@ const ProductDetail: React.FC = () => {
   }, [supplier, article]);
 
   useEffect(() => {
+    // Проверяем, есть ли этот товар в избранном, и устанавливаем статус "лайкнут"
     const liked = JSON.parse(localStorage.getItem('liked') || '{"products": []}');
     const isProductLiked = liked.products.some((item: any) => item.article === product?.article);
     setIsLiked(isProductLiked);
@@ -90,26 +91,45 @@ const ProductDetail: React.FC = () => {
     const existingProductIndex = liked.products.findIndex((item: any) => item.article === product.article);
 
     if (existingProductIndex > -1) {
+      // Если товар уже есть в избранном, удаляем его
       liked.products.splice(existingProductIndex, 1);
-      setIsLiked(false);
+      setIsLiked(false);  // Обновляем статус лайка
       toast.success('Товар удален из избранного');
     } else {
+      // Добавляем товар в избранное
       liked.products.push({ article: product.article, source: product.source, quantity: 1 });
-      setIsLiked(true);
+      setIsLiked(true);  // Обновляем статус лайка
       toast.success('Товар добавлен в избранное');
     }
 
     localStorage.setItem('liked', JSON.stringify(liked));
   };
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Ссылка скопирована в буфер обмена!');
+  const shareOnTelegram = () => {
+    if (product) {
+      const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.name)}`;
+      window.open(url, '_blank');
+    }
+  };
+
+  const shareOnWhatsApp = () => {
+    if (product) {
+      const url = `https://wa.me/?text=${encodeURIComponent(product.name)}%20${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank');
+    }
+  };
+
+  const shareOnFacebook = () => {
+    if (product) {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+      window.open(url, '_blank');
+    }
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-black text-white">
+        {/* Show spinner when loading */}
         <ClipLoader size={50} color="#ffffff" loading={loading} />
         <p className="mt-4">Загрузка...</p>
       </div>
@@ -147,7 +167,7 @@ const ProductDetail: React.FC = () => {
             <div className="mt-4">
               <button
                 onClick={addToCart}
-                className="bg-white text-black py-3 px-6 rounded-md transition duration-500 hover:bg-blue-700 w-full"
+                className="bg-blue-600 text-white py-3 px-6 rounded-md transition duration-500 hover:bg-blue-700 w-full"
               >
                 В Корзину
               </button>
@@ -157,12 +177,17 @@ const ProductDetail: React.FC = () => {
                   <span>{isLiked ? 'Удалить из избранного' : 'В избранное'}</span>
                 </button>
                 <div className="flex space-x-4">
-                  
-                  {/* Copy Link Button */}
-                  <button onClick={copyLink} className="flex items-center space-x-2 text-gray-400 hover:text-blue-500 transition-colors">
-                    <Link color="white" size={24} />
-                    <span>Копировать ссылку</span>
+                  <button onClick={shareOnFacebook}>
+                    <Facebook color="white" size={24} />
                   </button>
+                  <button onClick={shareOnTelegram}>
+                    <Send color="white" size={24} />
+                  </button>
+                  <button onClick={shareOnWhatsApp}>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-whatsapp">
+    <path d="M4.68 3.84A9 9 0 0 1 12 1a9 9 0 0 1 7.32 12.84c-.34 1.26-.9 2.38-1.63 3.34l3.06 4.52-4.51-1.34a8.91 8.91 0 0 1-3.25 1.6A9 9 0 1 1 4.68 3.84zm1.53 2.4a7.6 7.6 0 1 0 12.88 6.79 7.6 7.6 0 0 0-8.6-9.44 7.6 7.6 0 0 0-4.43 2.96zm1.2 1.56l1.02-.03 1.02 1.02c.34.34.33.88-.02 1.25l-1.38 1.38c-.36.36-.88.36-1.24 0-.03 0-.05-.02-.08-.05-.33-.35-.62-.8-.88-1.27l-.2-.31-.69.04-.06.73c-.08.97-.08 1.76.14 2.18l-.14-.22c.21-.12.45-.19.7-.17l.2.31c.24-.38.49-.8.73-1.2z"></path>
+  </svg>
+</button>
                 </div>
               </div>
             </div>
