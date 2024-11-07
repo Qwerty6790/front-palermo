@@ -36,7 +36,7 @@ export const CatalogOfProducts: React.FC<CatalogOfProductsProps> = ({ products }
         const stockClass = stockCount > 0 ? 'text-green-500' : 'text-red-500';
 
         return (
-          <div key={product._id} className="relative shadow-lg transition duration-500 cursor-pointer bg-white border border-zinc-700 rounded-lg overflow-hidden">
+          <div key={product._id} className="relative shadow-lg transition duration-500 cursor-pointer hover:shadow-yellow-300 bg-white border border-zinc-700 rounded-lg overflow-hidden">
             <Link href={`/products/${product.source}/${product.article}`} passHref>
               <img
                 className="w-full h-48 sm:h-56 md:h-64 object-cover"

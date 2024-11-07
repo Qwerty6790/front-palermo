@@ -165,7 +165,7 @@ const Cart: React.FC = () => {
   };
 
   const totalAmount = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
-  const deliveryCost = 300;
+  const deliveryCost = 0;
 
   return (
     <motion.section
@@ -177,7 +177,7 @@ const Cart: React.FC = () => {
       <div className="container mx-auto mt-20">
         <div className="text-center">
           {/* Large Cart SVG */}
-          <svg className="w-20 h-20 mx-auto mb-8 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-20 h-20 mx-auto mb-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5H2m5 8l1.6 6M15 13l1.6 6M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z" />
           </svg>
           <h1 className="text-4xl font-bold mb-10 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-black">
@@ -194,17 +194,10 @@ const Cart: React.FC = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse mt-4">
-                <thead>
-                  <tr className="bg-gray-800 text-white">
-                    <th className="p-4">Продукт</th>
-                    <th className="p-4">Количество</th>
-                    <th className="p-4">Цена</th>
-                    <th className="p-4">Действия</th>
-                  </tr>
-                </thead>
+              
                 <tbody>
                   {cartProducts.map((product) => (
-                    <tr key={product._id} className="border-b bg-black hover:bg-gray-700">
+                    <tr key={product._id} className="border border-black transition duration-500 bg-black hover:border-neutral-400">
                       <td className="p-4">
                         <Link href={`/products/${product.source}/${product.article}`}>
                           <img
@@ -236,7 +229,7 @@ const Cart: React.FC = () => {
                       <td className="p-4 text-center">
                         <button
                           onClick={() => handleRemoveProduct(product._id)}
-                          className="text-red-500 hover:text-red-700"
+                          className="text-red-950 hover:text-red-700"
                         >
                           <FaTrash />
                         </button>
@@ -257,13 +250,13 @@ const Cart: React.FC = () => {
           </div>
           <button
             onClick={handleOrder}
-            className="w-full bg-black text-white py-3 rounded-md text-lg hover:bg-gray-800"
+            className="w-52 mx-2 bg-black  transition duration-500 text-white py-3 rounded-md text-lg hover:bg-neutral-600"
           >
             Оформить заказ
           </button>
           <button
             onClick={handleClearCart}
-            className="w-full bg-red-600 text-white py-3 mt-4 rounded-md text-lg hover:bg-red-500"
+            className="w-52 text-red-950 transition duration-500 py-3 mt-4 rounded-md text-lg hover:bg-red-500"
           >
             Очистить корзину
           </button>
@@ -271,8 +264,8 @@ const Cart: React.FC = () => {
 
         {/* Modal for Order Confirmation */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-8 max-w-sm w-full">
+          <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-black border-b border-l shadow shadow-white border-white rounded-lg p-8 max-w-sm w-full">
               <h2 className="text-xl font-semibold mb-4">Подтверждение заказа</h2>
               <p className="mb-6">Вы уверены, что хотите оформить заказ?</p>
               <div className="flex justify-between">
@@ -284,7 +277,7 @@ const Cart: React.FC = () => {
                 </button>
                 <button
                   onClick={confirmOrder}
-                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700"
+                  className="px-4 py-2 bg-green-950 text-white rounded-md hover:bg-green-700"
                 >
                   Подтвердить
                 </button>

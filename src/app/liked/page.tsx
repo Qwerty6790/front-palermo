@@ -99,14 +99,14 @@ const Liked: React.FC = () => {
             likedProducts.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {likedProducts.map((product) => (
-                  <div key={product._id} className="flex flex-col items-center border-b p-4 md:p-6 rounded-lg bg-white dark:bg-black shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div key={product._id} className="flex flex-col items-center border border-black cursor-pointer *: hover:border-white p-4 md:p-6 rounded-lg bg-white dark:bg-black shadow-lg hover:shadow-xl transition-all duration-300">
                     <img src={product.imageAddress} alt={product.name} className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg shadow-md" />
                     <div className="mt-4 flex-grow text-center">
                       <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">{product.name}</h2>
                       <p className="text-gray-600 dark:text-gray-300">Цена: {product.price} ₽</p>
                     </div>
                     <button
-                      className="mt-4 px-4 py-2 bg-red-950 text-white rounded-md hover:bg-red-600 transition duration-200"
+                      className="mt-4 px-4 py-2 bg-red-950  transition duration-500 text-white rounded-md hover:bg-red-600 "
                       onClick={() => handleRemoveProduct(product._id)}
                     >
                       Удалить
@@ -121,7 +121,7 @@ const Liked: React.FC = () => {
           {likedProducts.length > 0 && (
             <div className="flex justify-end p-4">
               <button
-                className="px-6 py-3 bg-red-950 hover:bg-red-600 text-white rounded-md shadow-md"
+                className="px-6 py-3 bg-red-950  transition duration-500 hover:bg-red-600 text-white rounded-md shadow-md"
                 onClick={handleClearCart}
               >
                 Очистить Избранное
