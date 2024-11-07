@@ -104,7 +104,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         key="next"
         type="button"
-        className={`inline-flex items-center mt-6 px-4 absolute py-2 text-sm font-semibold border rounded-r-md dark:border-black ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`inline-flex items-center  px-4 absolute py-2 text-sm font-semibold border rounded-r-md dark:border-black ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
         onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >

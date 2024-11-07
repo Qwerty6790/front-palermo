@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import 'tailwindcss/tailwind.css';
 import Header from '@/components/Header';
 import { Toaster, toast } from 'sonner';
-import { Heart, Facebook, Twitter, Send } from 'lucide-react';
+import { Heart, Facebook, Twitter, Send, Link } from 'lucide-react'; // Added Link for copy
 import ClipLoader from 'react-spinners/ClipLoader'; // Import the spinner
 
 interface ProductI {
@@ -45,7 +45,6 @@ const ProductDetail: React.FC = () => {
   }, [supplier, article]);
 
   useEffect(() => {
-    // Проверяем, есть ли этот товар в избранном, и устанавливаем статус "лайкнут"
     const liked = JSON.parse(localStorage.getItem('liked') || '{"products": []}');
     const isProductLiked = liked.products.some((item: any) => item.article === product?.article);
     setIsLiked(isProductLiked);
@@ -91,24 +90,26 @@ const ProductDetail: React.FC = () => {
     const existingProductIndex = liked.products.findIndex((item: any) => item.article === product.article);
 
     if (existingProductIndex > -1) {
-      // Если товар уже есть в избранном, удаляем его
       liked.products.splice(existingProductIndex, 1);
-      setIsLiked(false);  // Обновляем статус лайка
+      setIsLiked(false);
       toast.success('Товар удален из избранного');
     } else {
-      // Добавляем товар в избранное
       liked.products.push({ article: product.article, source: product.source, quantity: 1 });
-      setIsLiked(true);  // Обновляем статус лайка
+      setIsLiked(true);
       toast.success('Товар добавлен в избранное');
     }
 
     localStorage.setItem('liked', JSON.stringify(liked));
   };
 
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success('Ссылка скопирована в буфер обмена!');
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-black text-white">
-        {/* Show spinner when loading */}
         <ClipLoader size={50} color="#ffffff" loading={loading} />
         <p className="mt-4">Загрузка...</p>
       </div>
@@ -146,7 +147,7 @@ const ProductDetail: React.FC = () => {
             <div className="mt-4">
               <button
                 onClick={addToCart}
-                className="bg-blue-600 text-white py-3 px-6 rounded-md transition duration-500 hover:bg-blue-700 w-full"
+                className="bg-white text-black py-3 px-6 rounded-md transition duration-500 hover:bg-blue-700 w-full"
               >
                 В Корзину
               </button>
@@ -156,14 +157,11 @@ const ProductDetail: React.FC = () => {
                   <span>{isLiked ? 'Удалить из избранного' : 'В избранное'}</span>
                 </button>
                 <div className="flex space-x-4">
-                  <button>
-                    <Facebook color="white" size={24} />
-                  </button>
-                  <button>
-                    <Twitter color="white" size={24} />
-                  </button>
-                  <button>
-                    <Send color="white" size={24} />
+                  
+                  {/* Copy Link Button */}
+                  <button onClick={copyLink} className="flex items-center space-x-2 text-gray-400 hover:text-blue-500 transition-colors">
+                    <Link color="white" size={24} />
+                    <span>Копировать ссылку</span>
                   </button>
                 </div>
               </div>
