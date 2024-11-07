@@ -3,8 +3,6 @@ import React from 'react';
 import { Analytics } from "@vercel/analytics/react"
 import { motion } from 'framer-motion';
 import ImageHoverEffect from '../components/Banner';
-import Denkirs from '@/components/DenkirsNews/page'; 
-import Favorite from '@/components/FavouriteNews/page'; 
 import Footer from '@/components/Footer';
 
 export default function Home() {

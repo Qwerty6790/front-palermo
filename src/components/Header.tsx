@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     { label: 'Каталог', href: '/products', icon: <ShoppingBasket size={24} /> },
     { label: 'Корзина', href: '/cart', icon: <ShoppingBasket size={24} /> },
     { label: 'Избранное', href: '/liked', icon: <Heart size={24} /> },  // New link for "Избранное"
-    { label: 'Профиль', href: '/contact', icon: <CircleUser size={24} /> },
+    { label: 'Профиль', href: '/profile', icon: <CircleUser size={24} /> },
     { label: 'О нас', href: '/about', icon: <Info size={24} /> },
     { label: 'Заказы', href: '/orders', icon: <Home size={24} /> },
   ];
@@ -141,7 +141,7 @@ const Header: React.FC = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="flex items-center text-3xl space-x-2 px-4 py-2 hover:bg-gray-700 transition-colors duration-200"
+                  className="flex items-center text-3xl space-x-2 px-4 py-2 hover:bg-neutral-700 transition-colors duration-200"
                 >
                   {item.icon}
                   <span>{item.label}</span>
@@ -163,7 +163,7 @@ const Header: React.FC = () => {
           <a
             key={item.label}
             href={item.href}
-            className="flex items-center space-x-2 hover:text-gray-600 transition-colors duration-200"
+            className="flex items-center space-x-2 hover:text-neutral-700 transition-colors duration-200"
           >
             {item.icon}
             <span>{item.label}</span>

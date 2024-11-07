@@ -12,7 +12,7 @@ export default function ImageHoverEffect() {
 
   const texts = ['Выбор светильников', 'Уникальный дизайн', 'Все на PalermonLight'];
   const slides = [
-    { beforeVideo: './images/do5.mp4', afterVideo: './images/posle5.mp4' },
+    { beforeImage: './images/do5.png', afterImage: './images/posle5.png' },
   ];
 
   // Typing animation effect
@@ -66,20 +66,16 @@ export default function ImageHoverEffect() {
   return (
     <div className="relative lg:mt-32 bg-black h-[750px] w-full overflow-hidden flex items-center justify-center">
       <div className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${fade ? 'opacity-100' : 'opacity-0'}`}>
-        {/* Primary Video */}
-        <video
-          src={slides[currentSlide].beforeVideo}
-          autoPlay
-          loop
-          muted
+        {/* Primary Image */}
+        <img
+          src={slides[currentSlide].beforeImage}
+          alt="Before"
           className="absolute inset-0 w-full h-full object-cover transition duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-105 group-hover:brightness-150"
         />
-        {/* Hover Video */}
-        <video
-          src={slides[currentSlide].afterVideo}
-          autoPlay
-          loop
-          muted
+        {/* Hover Image */}
+        <img
+          src={slides[currentSlide].afterImage}
+          alt="After"
           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out group-hover:scale-105"
         />
 
@@ -90,7 +86,7 @@ export default function ImageHoverEffect() {
           </div>
           <div className="text-white text-5xl font-extrabold mb-4">PalermoLight</div>
           <a
-            href="/catalog"
+            href="/products"
             className="bg-white text-black px-8 py-4 text-1xl font-semibold rounded-lg shadow-lg transition transform duration-500 hover:scale-110 hover:bg-gray-100"
           >
             Подробнее в каталоге

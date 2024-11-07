@@ -5,11 +5,13 @@ import { Toaster, toast } from 'sonner';
 import Link from 'next/link';
 import axios, { AxiosError } from 'axios'; // Импортируем axios и AxiosError
 import { OrderI } from '../../types/interfaces'; // Импортируем интерфейс Order
+import { ClipLoader } from 'react-spinners'; // Импортируем спиннер
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<OrderI[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true); // Добавим состояние загрузки
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -24,7 +26,9 @@ const Orders: React.FC = () => {
         });
 
         setOrders(response.data.orders);
+        setLoading(false); // Заказы загружены, снимаем состояние загрузки
       } catch (error) {
+        setLoading(false); // Ошибка при загрузке, снимаем состояние загрузки
         if (error instanceof AxiosError && error.response?.status === 403) {
           toast.error('Пожалуйста, войдите в аккаунт снова.');
           localStorage.removeItem('token');
@@ -90,7 +94,11 @@ const Orders: React.FC = () => {
             Нажмите на заказ ID, чтобы увидеть детали заказа.
           </p>
 
-          {orders.length === 0 ? (
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <ClipLoader color="#fff" size={50} />
+            </div>
+          ) : orders.length === 0 ? (
             <div className="text-center">У вас еще нет заказов.</div>
           ) : (
             <div className="flex flex-col mt-4 space-y-4">

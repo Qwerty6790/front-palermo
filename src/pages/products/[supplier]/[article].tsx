@@ -5,6 +5,7 @@ import 'tailwindcss/tailwind.css';
 import Header from '@/components/Header';
 import { Toaster, toast } from 'sonner';
 import { Heart, Facebook, Twitter, Send } from 'lucide-react';
+import ClipLoader from 'react-spinners/ClipLoader'; // Import the spinner
 
 interface ProductI {
   _id: string; 
@@ -107,7 +108,9 @@ const ProductDetail: React.FC = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-black text-white">
-        <p>Загрузка...</p>
+        {/* Show spinner when loading */}
+        <ClipLoader size={50} color="#ffffff" loading={loading} />
+        <p className="mt-4">Загрузка...</p>
       </div>
     );
   }
