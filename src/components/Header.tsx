@@ -134,7 +134,7 @@ const Header: React.FC = () => {
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              transition={{ type: '', stiffness: 300 }}
               className="fixed inset-y-0 left-0 bg-black text-white w-3/4 max-w-xs z-50 p-5 space-y-4"
             >
               {navLinks.map((item) => (

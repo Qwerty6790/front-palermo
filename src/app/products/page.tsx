@@ -338,7 +338,7 @@ const Catalog: React.FC = () => {
   </div>
 
           {/* Products Section */}
-          <div className="w-full scale-90 md:w-3/4 bg-black p-4 rounded-lg">
+          <div className="w-full max-md:ml-0 max-md:scale-100 scale-90 max-xl:scale-[65%]   max-xl:-ml-32    bg-black p-4 rounded-lg">
   {loading ? (
     <div className="flex justify-center items-center h-full"> {/* Center the loader */}
       <ClipLoader color="#ffffff" loading={loading} size={50} /> {/* Adjust the size as needed */}

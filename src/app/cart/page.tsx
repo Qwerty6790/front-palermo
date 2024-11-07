@@ -165,7 +165,8 @@ const Cart: React.FC = () => {
   };
 
   const totalAmount = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
-  const deliveryCost = 0;
+  const deliveryCost = 0; // Adjust this value based on delivery method or pricing
+  const totalToPay = totalAmount + deliveryCost; // Total amount to pay
 
   return (
     <motion.section
@@ -184,7 +185,7 @@ const Cart: React.FC = () => {
             Корзина
           </h1>
         </div>
-        <div className="p-4 md:px-10 lg:px-32 xl:max-w-3xl mx-auto">
+        <div className="p-4 md:px-10  lg:px-32 xl:max-w-3xl mx-auto">
           {isLoading ? (
             <div className="flex justify-center items-center">
               <ClipLoader color="#FFFFF" size={50} />
@@ -193,17 +194,16 @@ const Cart: React.FC = () => {
             <div className="text-center p-4">{error}</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse mt-4">
-              
+              <table className="w-full  text-left border-collapse mt-4">
                 <tbody>
                   {cartProducts.map((product) => (
-                    <tr key={product._id} className="border border-black transition duration-500 bg-black hover:border-neutral-400">
-                      <td className="p-4">
+                    <tr key={product._id} className="border-b  border-black transition duration-500 bg-black hover:border-neutral-400">
+                      <td className="p-4 ">
                         <Link href={`/products/${product.source}/${product.article}`}>
                           <img
                             src={product.imageAddress}
                             alt={product.name}
-                            className="w-20 h-20 object-cover rounded-md"
+                            className="w-20 h-20  object-cover rounded-md"
                           />
                           <div>
                             <h2 className="text-lg font-semibold text-white">{product.name}</h2>
@@ -213,14 +213,14 @@ const Cart: React.FC = () => {
                       <td className="p-4 text-center">
                         <button
                           onClick={() => handleDecreaseQuantity(product._id)}
-                          className="px-2 py-1 border border-gray-500 rounded-md"
+                          className="px-2 py-1 text-sm bg-black text-white rounded-full"
                         >
                           <FaMinus />
                         </button>
-                        <span className="px-4">{product.quantity}</span>
+                        <span className="mx-2">{product.quantity}</span>
                         <button
                           onClick={() => handleIncreaseQuantity(product._id)}
-                          className="px-2 py-1 border border-gray-500 rounded-md"
+                          className="px-2 py-1 text-sm bg-black text-white rounded-full"
                         >
                           <FaPlus />
                         </button>
@@ -229,7 +229,7 @@ const Cart: React.FC = () => {
                       <td className="p-4 text-center">
                         <button
                           onClick={() => handleRemoveProduct(product._id)}
-                          className="text-red-950 hover:text-red-700"
+                          className="px-2 py-1 text-sm text-white bg-red-950 transition duration-500 hover:bg-red-700 rounded-full"
                         >
                           <FaTrash />
                         </button>
@@ -238,56 +238,58 @@ const Cart: React.FC = () => {
                   ))}
                 </tbody>
               </table>
+
+              {/* Clear Cart and Place Order Buttons */}
+              {cartProducts.length > 0 && (
+                <div className="flex justify-between mt-8">
+                  <button
+                    onClick={handleClearCart}
+                    className="bg-red-950 hover:bg-red-700 transition duration-500 text-white font-semibold py-2 px-6 rounded-full"
+                  >
+                    Очистить корзину
+                  </button>
+                  <button
+                    onClick={handleOrder}
+                    className="bg-green-950 transition duration-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full"
+                  >
+                    Оформить заказ
+                  </button>
+                </div>
+              )}
+
+              {/* Total amount to pay */}
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold text-right">
+                  Итого к оплате: {totalToPay} ₽
+                </h3>
+              </div>
             </div>
           )}
         </div>
+      </div>
 
-        {/* Total & Checkout Section */}
-        <div className="mt-8 text-center">
-          <div className="flex justify-between mb-4 text-lg font-semibold">
-            <span>Итого:</span>
-            <span>{totalAmount + deliveryCost} ₽</span>
-          </div>
-          <button
-            onClick={handleOrder}
-            className="w-52 mx-2 bg-black  transition duration-500 text-white py-3 rounded-md text-lg hover:bg-neutral-600"
-          >
-            Оформить заказ
-          </button>
-          <button
-            onClick={handleClearCart}
-            className="w-52 text-red-950 transition duration-500 py-3 mt-4 rounded-md text-lg hover:bg-red-500"
-          >
-            Очистить корзину
-          </button>
-        </div>
-
-        {/* Modal for Order Confirmation */}
-        {isModalOpen && (
-          <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-black border-b border-l shadow shadow-white border-white rounded-lg p-8 max-w-sm w-full">
-              <h2 className="text-xl font-semibold mb-4">Подтверждение заказа</h2>
-              <p className="mb-6">Вы уверены, что хотите оформить заказ?</p>
-              <div className="flex justify-between">
-                <button
-                  onClick={cancelOrder}
-                  className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-700"
-                >
-                  Отмена
-                </button>
-                <button
-                  onClick={confirmOrder}
-                  className="px-4 py-2 bg-green-950 text-white rounded-md hover:bg-green-700"
-                >
-                  Подтвердить
-                </button>
-              </div>
+      {/* Modal for Order Confirmation */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+          <div className="bg-white p-8 rounded-lg">
+            <h2 className="text-xl font-semibold mb-4">Подтвердите заказ</h2>
+            <div className="mb-4">
+              <p>Сумма заказа: {totalAmount} ₽</p>
+              <p>Доставка: {deliveryCost} ₽</p>
+              <p>Общая сумма: {totalAmount + deliveryCost} ₽</p>
+            </div>
+            <div className="flex justify-between">
+              <button onClick={cancelOrder} className="bg-gray-500 hover:bg-gray-700 text-white py-2 px-6 rounded-full">
+                Отмена
+              </button>
+              <button onClick={confirmOrder} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded-full">
+                Подтвердить
+              </button>
             </div>
           </div>
-        )}
-
-        <Toaster position="top-center" />
-      </div>
+        </div>
+      )}
+      <Toaster />
     </motion.section>
   );
 };

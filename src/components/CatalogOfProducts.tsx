@@ -30,7 +30,7 @@ export const CatalogOfProducts: React.FC<CatalogOfProductsProps> = ({ products }
 };
 
   return (
-    <div className="grid grid-cols-1 scale-90 -mt-10  lg:w-[1300px] lg:-ml-44 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-5">
+    <div className="grid grid-cols-1     lg:w-[1300px] lg:-ml-44 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-5">
       {products.map((product) => {
         const stockCount = getStockCount(product.stock);
         const stockClass = stockCount > 0 ? 'text-green-500' : 'text-red-500';
