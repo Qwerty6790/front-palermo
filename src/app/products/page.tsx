@@ -208,7 +208,6 @@ const Catalog: React.FC = () => {
         <div className="flex flex-col md:flex-row -mx-20 w-full max-w-6xl mt-44">
           {/* Filters Section */}
         <div>
-          <p className='-ml-56 xl:hidden lg:hidden max-xl:hidden max-1xl:hidden   max-lg:hidden max-md:hidden text-5xl text-white '>Скоро</p>
           <FilterOptions />
         </div>
           <div className="w-full text-2xl   md:w-1/4 lg:w-4/4 h-auto bg-black p-2 flex flex-col  justify-start items-center space-y-2 md:mb-4">
@@ -236,7 +235,7 @@ const Catalog: React.FC = () => {
               {brands.map((brand) => (
                 <div
                   key={brand.name}
-                  className="cursor-pointer hover:bg-gray-700 p-2 text-white"
+                  className="cursor-pointer hover:bg-neutral-700 p-2 text-white"
                   onClick={() => handleBrandChange(brand)}
                 >
                   {brand.name}
@@ -270,7 +269,7 @@ const Catalog: React.FC = () => {
               {selectedBrand.categories.map((category) => (
                 <div
                   key={category.searchName}
-                  className="cursor-pointer hover:bg-gray-700 p-2 text-white"
+                  className="cursor-pointer hover:bg-neutral-700 p-2 text-white"
                   onClick={() => handleCategoryChange(category)}
                 >
                   {category.label}
@@ -289,7 +288,7 @@ const Catalog: React.FC = () => {
             type="number"
             value={minPrice}
             onChange={(e) => handlePriceChange(setMinPrice, Number(e.target.value))}
-            className="bg-black lg:w-32 д border text-white py-1 px-2 rounded w-1/3 text-sm"
+            className="bg-black lg:w-32  border text-white py-1 px-2 rounded w-1/3 text-sm"
             placeholder="Мин"
           />
           <span className="text-white text-sm">-</span>

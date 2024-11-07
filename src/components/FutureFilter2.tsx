@@ -3,13 +3,17 @@ import React from 'react';
 
 const FilterOptions: React.FC = () => {
   return (
-    <div className="flex flex-col xl:hidden lg:hidden max-1xl:hidden max-lg:hidden max-md:hidden items-center justify-start py-6 px-4 rounded-lg shadow-md bg-gradient-to-l from-black sticky top-0 z-10">
+    <div className="flex flex-col -ml-56 max-md:hidden max-xl:hidden  items-center justify-start py-6 px-4 rounded-lg shadow-md bg-gradient-to-l from-black sticky top-0 z-10">
       {[
         { label: "По релевантности", icon: <Filter color="white" size={18} /> },
         { label: "По бренду", icon: <Tag color="white" size={18} /> },
         { label: "Новые", icon: <Tag color="white" size={18} /> },
         { label: "По коллекции", icon: <Grid color="white" size={18} /> },
         { label: "Сравнение", icon: <Grid color="white" size={18} /> },
+        { label: "Комната", icon: <Tag color="white" size={18} /> },
+        { label: "Свет", icon: <Tag color="white" size={18} /> },
+        { label: "Тип", icon: <Grid color="white" size={18} /> },
+        { label: "3D", icon: <Grid color="white" size={18} /> },
       ].map((filter, index) => (
         <React.Fragment key={filter.label}>
           {index > 0 && (
