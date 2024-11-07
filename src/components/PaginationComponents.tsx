@@ -101,18 +101,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 
     // Кнопка "следующая"
     buttons.push(
-      <button
-        key="next"
-        type="button"
-        className={`inline-flex items-center  px-4 absolute py-2 text-sm font-semibold border rounded-r-md dark:border-black ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
-        onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        <span className="sr-only">Next</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="w-5 h-5">
-          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
-        </svg>
-      </button>
+      
     );
 
     return buttons;
