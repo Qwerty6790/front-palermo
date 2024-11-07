@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import { Toaster, toast } from 'sonner';
 import { Heart, Facebook, Twitter, Send } from 'lucide-react';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import the spinner
+import { FaWhatsapp } from "react-icons/fa";
 
 interface ProductI {
   _id: string; 
@@ -131,7 +132,6 @@ const ProductDetail: React.FC = () => {
       <div className="flex justify-center items-center h-screen bg-black text-white">
         {/* Show spinner when loading */}
         <ClipLoader size={50} color="#ffffff" loading={loading} />
-        <p className="mt-4">Загрузка...</p>
       </div>
     );
   }
@@ -184,9 +184,10 @@ const ProductDetail: React.FC = () => {
                     <Send color="white" size={24} />
                   </button>
                   <button onClick={shareOnWhatsApp}>
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-whatsapp">
-    <path d="M4.68 3.84A9 9 0 0 1 12 1a9 9 0 0 1 7.32 12.84c-.34 1.26-.9 2.38-1.63 3.34l3.06 4.52-4.51-1.34a8.91 8.91 0 0 1-3.25 1.6A9 9 0 1 1 4.68 3.84zm1.53 2.4a7.6 7.6 0 1 0 12.88 6.79 7.6 7.6 0 0 0-8.6-9.44 7.6 7.6 0 0 0-4.43 2.96zm1.2 1.56l1.02-.03 1.02 1.02c.34.34.33.88-.02 1.25l-1.38 1.38c-.36.36-.88.36-1.24 0-.03 0-.05-.02-.08-.05-.33-.35-.62-.8-.88-1.27l-.2-.31-.69.04-.06.73c-.08.97-.08 1.76.14 2.18l-.14-.22c.21-.12.45-.19.7-.17l.2.31c.24-.38.49-.8.73-1.2z"></path>
-  </svg>
+                  <button onClick={shareOnWhatsApp}>
+                  <FaWhatsapp color='white' size={24} />
+
+</button>
 </button>
                 </div>
               </div>

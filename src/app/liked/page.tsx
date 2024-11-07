@@ -130,7 +130,6 @@ const Liked: React.FC = () => {
           )}
         </div>
       </div>
-      <Toaster position="bottom-center" />
     </motion.section>
   );
 };

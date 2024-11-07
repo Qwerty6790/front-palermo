@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Toaster, toast } from 'sonner';
 import Link from 'next/link';
-import axios, { AxiosError } from 'axios'; // Импортируем axios и AxiosError
-import { OrderI } from '../../types/interfaces'; // Импортируем интерфейс Order
-import { ClipLoader } from 'react-spinners'; // Импортируем спиннер
+import axios, { AxiosError } from 'axios';
+import { OrderI } from '../../types/interfaces';
+import { ClipLoader } from 'react-spinners';
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<OrderI[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Добавим состояние загрузки
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -26,9 +26,9 @@ const Orders: React.FC = () => {
         });
 
         setOrders(response.data.orders);
-        setLoading(false); // Заказы загружены, снимаем состояние загрузки
+        setLoading(false);
       } catch (error) {
-        setLoading(false); // Ошибка при загрузке, снимаем состояние загрузки
+        setLoading(false);
         if (error instanceof AxiosError && error.response?.status === 403) {
           toast.error('Пожалуйста, войдите в аккаунт снова.');
           localStorage.removeItem('token');
@@ -90,9 +90,11 @@ const Orders: React.FC = () => {
         <div className="p-4 mx-auto md:px-10 lg:px-32 xl:max-w-3xl">
           <h1 className="text-2xl font-bold text-center mb-6">Заказы</h1>
 
-          <p className="mb-6 text-center text-gray-400">
-            Нажмите на заказ ID, чтобы увидеть детали заказа.
-          </p>
+          {orders.length > 0 && (
+            <p className="mb-6 text-center text-gray-400">
+              Нажмите на заказ ID, чтобы увидеть детали заказа.
+            </p>
+          )}
 
           {loading ? (
             <div className="flex justify-center items-center">
@@ -144,7 +146,6 @@ const Orders: React.FC = () => {
               </div>
             </div>
           )}
-
         </div>
       </div>
     </motion.section>
