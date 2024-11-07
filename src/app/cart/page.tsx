@@ -271,7 +271,7 @@ const Cart: React.FC = () => {
       {/* Modal for Order Confirmation */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg">
+          <div className="bg-black border shadow-sm p-8 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Подтвердите заказ</h2>
             <div className="mb-4">
               <p>Сумма заказа: {totalAmount} ₽</p>
@@ -279,10 +279,10 @@ const Cart: React.FC = () => {
               <p>Общая сумма: {totalAmount + deliveryCost} ₽</p>
             </div>
             <div className="flex justify-between">
-              <button onClick={cancelOrder} className="bg-gray-500 hover:bg-gray-700 text-white py-2 px-6 rounded-full">
+              <button onClick={cancelOrder} className="bg-gray-500 hover:bg-gray-700 text-white m-2 py-2 px-6 rounded-full">
                 Отмена
               </button>
-              <button onClick={confirmOrder} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded-full">
+              <button onClick={confirmOrder} className="bg-blue-950 hover:bg-blue-700 text-white py-2 px-6 rounded-full">
                 Подтвердить
               </button>
             </div>

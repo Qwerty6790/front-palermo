@@ -145,7 +145,6 @@ const Orders: React.FC = () => {
             </div>
           )}
 
-          <Toaster />
         </div>
       </div>
     </motion.section>
